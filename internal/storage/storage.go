@@ -1,11 +1,20 @@
 package storage
 
-import "github.com/olenka-91/storage/internal/file"
+import (
+	"fmt"
 
-type Storage struct{}
+	"github.com/google/uuid"
+	"github.com/olenka-91/storage/internal/file"
+)
+
+type Storage struct {
+	files map[uuid.UUID]*file.File
+}
 
 func NewStorage() *Storage {
-	return &Storage{}
+	return &Storage{
+		Files: make(map[uuid.UUID]*file.File),
+	}
 }
 
 func (s *Storage) Upload(filename string, blob []byte) (*file.File, error) {
@@ -13,5 +22,15 @@ func (s *Storage) Upload(filename string, blob []byte) (*file.File, error) {
 	if err != nil {
 		return nil, err
 	}
+	s.Files[newFile.ID] = newFile
 	return newFile, err
+}
+
+func (s *Storage) GetByID(fileID uuid.UUID) (*file.File, error) {
+	foundFile, ok := s.Files[fileID]
+	if !ok {
+		return nil, fmt.Errorf("file %v not found", fileID)
+	}
+	return foundFile, nil
+
 }

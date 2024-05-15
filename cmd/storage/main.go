@@ -13,6 +13,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("It works", file)
+	resFile, err := st.GetByID(file.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(st.Files)
+	fmt.Println("It is restored", resFile)
 }
