@@ -8,7 +8,7 @@ import (
 )
 
 type Storage struct {
-	files map[uuid.UUID]*file.File
+	Files map[uuid.UUID]*file.File
 }
 
 func NewStorage() *Storage {
