@@ -9,7 +9,7 @@ import (
 
 func main() {
 	st := storage.NewStorage()
-	file, err := st.Upload("test.txt", []byte("hello"))
+	file, err := st.Upload("test1.txt", []byte("hello"))
 	if err != nil {
 		log.Fatal(err)
 	}
